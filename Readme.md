@@ -1,12 +1,12 @@
 # Namo Labs | Digital Asset Forensics Suite  
 ### Trace the Ledger.
 
-A production-grade MVP platform for **crypto investigation, wallet tracing, transaction monitoring, and evidence integrity verification**.
+A platform for **crypto investigation, wallet tracing, transaction monitoring, and evidence integrity verification**.
 
-This project is designed as an enterprise-style **Digital Asset Forensics & Investigation System**, similar in architecture to Chainalysis/TRM Labs, built for DBMS + cybersecurity + blockchain forensics use cases.
+This project is designed as an **Digital Asset Forensics & Investigation System**, built for blockchain forensics use cases.
 
 
-**Namo Labs | Digital Asset Forensics Suite** is a full-stack forensic investigation platform that allows investigators to:
+**Namo Labs | Digital Asset Forensics Suite** is a forensic investigation platform that allows investigators to:
 
 - Create and manage investigation cases
 - Trace blockchain wallet addresses
