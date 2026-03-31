@@ -1,0 +1,28 @@
+{
+  "nodes": [
+    {
+      "id": "0x396343362be2A4dA1cE0C1C210945346fb82Aa49",
+      "type": "walletNode",
+      "position": {
+        "x": 250,
+        "y": 250
+      },
+      "data": {
+        "address": "0x396343362be2A4dA1cE0C1C210945346fb82Aa49",
+        "riskScore": 0,
+        "type": "wallet"
+      },
+      "measured": {
+        "width": 200,
+        "height": 67
+      },
+      "selected": true
+    }
+  ],
+  "edges": [],
+  "viewport": {
+    "x": 0,
+    "y": 0,
+    "zoom": 1
+  }
+}
