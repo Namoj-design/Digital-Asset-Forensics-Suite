@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 7%;
+    --foreground: 210 20% 88%;
+
+    --card: 220 18% 10%;
+    --card-foreground: 210 20% 88%;
+
+    --popover: 220 18% 10%;
+    --popover-foreground: 210 20% 88%;
+
+    --primary: 185 60% 45%;
+    --primary-foreground: 220 20% 7%;
+
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 210 20% 75%;
+
+    --muted: 220 15% 13%;
+    --muted-foreground: 215 15% 50%;
+
+    --accent: 220 15% 15%;
+    --accent-foreground: 210 20% 88%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 15% 16%;
+    --input: 220 15% 16%;
+    --ring: 185 60% 45%;
+
+    --radius: 0.25rem;
+
+    --sidebar-background: 220 20% 5%;
+    --sidebar-foreground: 215 15% 55%;
+    --sidebar-primary: 185 60% 45%;
+    --sidebar-primary-foreground: 220 20% 7%;
+    --sidebar-accent: 220 18% 12%;
+    --sidebar-accent-foreground: 185 60% 55%;
+    --sidebar-border: 220 15% 12%;
+    --sidebar-ring: 185 60% 45%;
+
+    /* Intel tokens */
+    --risk-critical: 0 72% 51%;
+    --risk-high: 30 90% 50%;
+    --risk-medium: 45 90% 50%;
+    --risk-low: 160 60% 40%;
+    --risk-none: 215 15% 40%;
+
+    --graph-node: 185 60% 45%;
+    --graph-node-highlight: 185 70% 60%;
+    --graph-edge: 220 15% 25%;
+    --graph-bg: 220 20% 7%;
+
+    --status-open: 185 60% 45%;
+    --status-investigating: 30 90% 50%;
+    --status-closed: 160 60% 40%;
+
+    /* HUD tokens */
+    --hud-glow: 185 60% 45%;
+    --hud-amber: 40 90% 55%;
+    --hud-red: 0 72% 51%;
+    --hud-grid: 220 15% 12%;
+    --hud-panel: 220 18% 8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .font-sans {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Scanline overlay */
+  .scanline-overlay::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px
+    );
+  }
+}
+
+@layer components {
+  .stat-card {
+    @apply bg-card border border-border p-4 transition-all duration-200;
+    box-shadow: 0 0 0 0 hsl(var(--hud-glow) / 0);
+  }
+  .stat-card:hover {
+    border-color: hsl(var(--hud-glow) / 0.3);
+    box-shadow: 0 0 15px -5px hsl(var(--hud-glow) / 0.15);
+  }
+
+  .forensic-panel {
+    @apply bg-card border border-border overflow-hidden;
+  }
+
+  .risk-badge {
+    @apply inline-flex items-center px-2 py-0.5 text-[10px] font-mono font-medium tracking-wide uppercase;
+  }
+
+  .risk-critical {
+    @apply bg-red-950/50 text-red-400 border border-red-800/30;
+  }
+  .risk-high {
+    @apply bg-orange-950/50 text-orange-400 border border-orange-800/30;
+  }
+  .risk-medium {
+    @apply bg-yellow-950/50 text-yellow-400 border border-yellow-800/30;
+  }
+  .risk-low {
+    @apply bg-emerald-950/50 text-emerald-400 border border-emerald-800/30;
+  }
+  .risk-none {
+    @apply bg-slate-800/50 text-slate-400 border border-slate-700/30;
+  }
+
+  .wallet-address {
+    @apply font-mono text-xs tracking-tight text-foreground/80;
+  }
+
+  .graph-canvas {
+    @apply relative overflow-hidden;
+    background-color: hsl(var(--graph-bg));
+    background-image: 
+      radial-gradient(circle at 50% 50%, hsl(var(--hud-glow) / 0.03) 0%, transparent 70%),
+      linear-gradient(hsl(var(--hud-grid)) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--hud-grid)) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+  }
+
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2 text-xs font-medium transition-all duration-150 tracking-wide uppercase;
+  }
+
+  .nav-item-active {
+    @apply bg-sidebar-accent text-sidebar-accent-foreground border-l-2;
+    border-left-color: hsl(var(--hud-glow));
+  }
+
+  .nav-item-inactive {
+    @apply text-sidebar-foreground hover:text-sidebar-accent-foreground hover:bg-sidebar-accent/50 border-l-2 border-transparent;
+  }
+
+  /* HUD panel glass */
+  .hud-panel {
+    background: hsl(var(--hud-panel) / 0.95);
+    border: 1px solid hsl(var(--border));
+    backdrop-filter: blur(8px);
+  }
+
+  .hud-glow {
+    box-shadow: 0 0 20px -5px hsl(var(--hud-glow) / 0.2),
+                inset 0 1px 0 0 hsl(var(--hud-glow) / 0.05);
+  }
+
+  /* Tactical button */
+  .btn-tactical {
+    @apply bg-transparent border font-mono text-xs uppercase tracking-widest px-4 py-2 transition-all duration-150;
+    border-color: hsl(var(--hud-glow) / 0.4);
+    color: hsl(var(--hud-glow));
+  }
+  .btn-tactical:hover {
+    background: hsl(var(--hud-glow) / 0.1);
+    border-color: hsl(var(--hud-glow) / 0.7);
+    box-shadow: 0 0 12px -3px hsl(var(--hud-glow) / 0.3);
+  }
+
+  /* Status indicator dot */
+  .status-dot {
+    @apply h-1.5 w-1.5 rounded-full;
+    box-shadow: 0 0 6px 1px currentColor;
+  }
+
+  /* Corner brackets decoration */
+  .corner-brackets {
+    position: relative;
+  }
+  .corner-brackets::before,
+  .corner-brackets::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-color: hsl(var(--hud-glow) / 0.4);
+  }
+  .corner-brackets::before {
+    top: -1px;
+    left: -1px;
+    border-top: 1px solid;
+    border-left: 1px solid;
+  }
+  .corner-brackets::after {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(220 20% 7%);
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(220 15% 20%);
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(185 60% 45% / 0.4);
+}
+
+/* Pulse animation for alerts */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ReactFlow Controls — Dark Theme Override */
+.react-flow__controls {
+  background: hsl(220 18% 10% / 0.9) !important;
+  border: 1px solid hsl(220 15% 18%) !important;
+  border-radius: 0.5rem !important;
+  backdrop-filter: blur(12px) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px hsl(185 60% 45% / 0.05) !important;
+  overflow: hidden !important;
+}
+
+.react-flow__controls-button {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid hsl(220 15% 16%) !important;
+  fill: hsl(215 15% 50%) !important;
+  color: hsl(215 15% 50%) !important;
+  width: 32px !important;
+  height: 32px !important;
+  padding: 6px !important;
+  transition: all 0.2s ease !important;
+}
+
+.react-flow__controls-button:hover {
+  background: hsl(185 60% 45% / 0.1) !important;
+  fill: hsl(185 60% 55%) !important;
+  color: hsl(185 60% 55%) !important;
+}
+
+.react-flow__controls-button:last-child {
+  border-bottom: none !important;
+}
+
+.react-flow__controls-button svg {
+  max-width: 14px !important;
+  max-height: 14px !important;
+}
+
+/* ReactFlow Attribution — hide */
+.react-flow__attribution {
+  display: none !important;
+}
