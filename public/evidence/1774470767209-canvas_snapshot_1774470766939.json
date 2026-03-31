@@ -1,0 +1,27 @@
+{
+  "nodes": [
+    {
+      "id": "node_1774470723524",
+      "type": "exchangeNode",
+      "position": {
+        "x": 416.7149967904845,
+        "y": 284.089541243215
+      },
+      "data": {
+        "address": "",
+        "riskScore": 100
+      },
+      "measured": {
+        "width": 96,
+        "height": 88
+      },
+      "selected": true
+    }
+  ],
+  "edges": [],
+  "viewport": {
+    "x": 0,
+    "y": 0,
+    "zoom": 1
+  }
+}
